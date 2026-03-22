@@ -1,4 +1,4 @@
-import { sleep } from "../utils/sleep";
+import { sleep } from "../../utils/sleep";
 
 export async function HeapSort(
   bars,
@@ -38,11 +38,11 @@ async function heapify(arr, n, i, setBars, speedRef, stopSorting, currentRunId, 
   let left = 2 * i + 1;
   let right = 2 * i + 2;
 
-  if (left < n && arr[left] > arr[largest]) {
+  if (left < n && arr[left].value > arr[largest].value) {
     largest = left;
   }
 
-  if (right < n && arr[right] > arr[largest]) {
+  if (right < n && arr[right].value > arr[largest].value) {
     largest = right;
   }
 

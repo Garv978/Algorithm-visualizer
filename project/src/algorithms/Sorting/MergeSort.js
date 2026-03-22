@@ -1,4 +1,4 @@
-import {sleep} from "../utils/sleep"
+import {sleep} from "../../utils/sleep"
 
 export async function MergeSort(bars,setBars,speedRef,stopSorting,currentRunId,runId) {
   let arr = [...bars];
@@ -26,7 +26,7 @@ async function merge(arr, left, mid, right, setBars, speedRef, stopSorting, curr
   while (i <= mid && j <= right) {
     if (currentRunId !== runId.current || stopSorting.current) return;
 
-    if (arr[i] < arr[j]) {
+    if (arr[i].value < arr[j].value) {
       temp.push(arr[i]);
       i++;
     } else {

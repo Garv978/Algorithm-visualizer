@@ -10,7 +10,7 @@ export async function BubbleSort(bars, setBars, speedRef, stopSorting,currentRun
       if(currentRunId !== runId.current || stopSorting.current) return;
       
 
-      if (arr[j] > arr[j + 1]) {
+      if (arr[j].value > arr[j + 1].value) {
         let temp = arr[j];
         arr[j] = arr[j + 1];
         arr[j + 1] = temp;

@@ -1,9 +1,9 @@
-export default function Controls({ generateBars, startSorting, isSorting }) {
+export default function Controls({ generateBars, onStart, isRunning}) {
   return (
     <div className="flex gap-4 mt-4">
       <button
-        onClick={startSorting}
-        disabled={isSorting}
+        onClick={onStart}
+        disabled={isRunning}
         className="bg-green-500 text-white px-4 py-2 rounded disabled:bg-gray-400"
       >
         Start

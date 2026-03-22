@@ -1,4 +1,4 @@
-import { sleep } from "../utils/sleep";
+import { sleep } from "../../utils/sleep";
 
 export async function RadixSort(
   bars,
@@ -9,11 +9,20 @@ export async function RadixSort(
   runId
 ) {
   let arr = [...bars];
-  let max = Math.max(...arr);
+  let max = Math.max(...arr.map(b => b.value));
 
   for (let exp = 1; Math.floor(max / exp) > 0; exp *= 10) {
     if (currentRunId !== runId.current || stopSorting.current) return;
-    await countingSortByDigit(arr, exp, setBars, speedRef, stopSorting, currentRunId, runId);
+
+    await countingSortByDigit(
+      arr,
+      exp,
+      setBars,
+      speedRef,
+      stopSorting,
+      currentRunId,
+      runId
+    );
   }
 }
 
@@ -26,12 +35,12 @@ async function countingSortByDigit(
   currentRunId,
   runId
 ) {
-  let output = new Array(arr.length).fill(0);
+  let output = new Array(arr.length);
   let count = new Array(10).fill(0);
 
   // Count digits
   for (let i = 0; i < arr.length; i++) {
-    let digit = Math.floor(arr[i] / exp) % 10;
+    let digit = Math.floor(arr[i].value / exp) % 10;
     count[digit]++;
   }
 
@@ -40,10 +49,10 @@ async function countingSortByDigit(
     count[i] += count[i - 1];
   }
 
-  // Build output
+  // Build output (stable)
   for (let i = arr.length - 1; i >= 0; i--) {
-    let digit = Math.floor(arr[i] / exp) % 10;
-    output[count[digit] - 1] = arr[i];
+    let digit = Math.floor(arr[i].value / exp) % 10;
+    output[count[digit] - 1] = arr[i]; // move object
     count[digit]--;
   }
 

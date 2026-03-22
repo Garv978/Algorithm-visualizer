@@ -1,15 +1,19 @@
-import { algorithmMap as algorithms} from "../algorithms/index";
-
-export default function Dropdown({ algorithm, setAlgorithm }) {
+export default function Dropdown({
+  options,
+  value,
+  onChange,
+  labelKey = "name",
+  className = "",
+}) {
   return (
     <select
-      value={algorithm}
-      onChange={(e) => setAlgorithm(e.target.value)}
-      className="border p-2 rounded"
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      className={`border p-2 rounded ${className}`}
     >
-      {Object.entries(algorithms).map(([key, algo]) => (
+      {Object.entries(options).map(([key, item]) => (
         <option key={key} value={key}>
-          {algo.name}
+          {item[labelKey]}
         </option>
       ))}
     </select>

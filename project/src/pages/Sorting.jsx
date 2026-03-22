@@ -7,9 +7,10 @@ import SpeedSlider from "../components/SpeedSlider";
 import WorstCase from "../components/WorstCase";
 
 import { useSorting } from "../hooks/UseSorting";
+import { algorithmMap } from "../algorithms/Sorting";
 
 
-export default function Visualizer() {
+export default function Sorting() {
   const [numBars, setNumBars] = useState(20);
   const [algorithm, setAlgorithm] = useState("bubble");
 
@@ -28,15 +29,15 @@ export default function Visualizer() {
       <div className="flex justify-between items-center">
         <Slider value={numBars} setValue={setNumBars} />
         <WorstCase generateWorstCase={generateWorstCase} isSorting={isSorting}/>
-        <Dropdown algorithm={algorithm} setAlgorithm={setAlgorithm} />
+        <Dropdown options={algorithmMap} value={algorithm} onChange={setAlgorithm} />
       </div>
 
       <Bars bars={bars} />
 
       <Controls
         generateBars={generateBars}
-        startSorting={startSorting}
-        isSorting={isSorting}
+        onStart={startSorting}
+        isRunning={isSorting}
       />
       <SpeedSlider speed={speed} setSpeed={setSpeed}/>
     </div>

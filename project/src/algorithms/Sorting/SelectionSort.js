@@ -1,4 +1,4 @@
-import {sleep} from "../utils/sleep"
+import {sleep} from "../../utils/sleep"
 
 export async function SelectionSort(bars,setBars,speedRef,stopSorting,currentRunId,runId){
   let arr = [...bars];
@@ -7,7 +7,7 @@ export async function SelectionSort(bars,setBars,speedRef,stopSorting,currentRun
         let min_idx = i;
         for (let j = i + 1; j < n; j++) {
               if(currentRunId !== runId.current || stopSorting.current) return;
-            if (arr[j] < arr[min_idx]) {
+            if (arr[j].value < arr[min_idx].value) {
                 min_idx = j;
             }
         }

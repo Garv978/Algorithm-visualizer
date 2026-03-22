@@ -1,4 +1,4 @@
-import {sleep} from "../utils/sleep"
+import {sleep} from "../../utils/sleep"
 
 export async function QuickSort(bars,setBars,speedRef,stopSorting,currentRunId,runId) {
   let arr = [...bars];
@@ -23,7 +23,7 @@ async function partition(arr, low, high, setBars, speedRef, stopSorting, current
   for (let j = low; j < high; j++) {
     if (currentRunId !== runId.current || stopSorting.current) return;
 
-    if (arr[j] < pivot) {
+    if (arr[j].value < pivot.value) {
       i++;
 
       let temp = arr[i];

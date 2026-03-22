@@ -7,7 +7,7 @@ import Controls from "../components/Controls";
 import SpeedSlider from "../components/SpeedSlider";
 import { useSearching } from "../hooks/UseSearching";
 
-const Searching = () => {
+export default function Searching(){
   const [numBars, setNumBars] = useState(20);
   const [search, setSearch] = useState("linear");
   const [searchValue, setSearchValue] = useState(null);
@@ -83,5 +83,3 @@ const Searching = () => {
     </div>
   );
 };
-
-export default Searching;

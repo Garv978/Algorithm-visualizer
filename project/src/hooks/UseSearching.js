@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
-import { searchMap } from "../algorithms/Searching";
-import { sortedArray } from "../utils/arraygenerator";
+import { searchMap } from "../algorithms/Searching/index";
+import { sortedArray } from "../utils/arrayGenerator";
 import { COLORS } from "../utils/colors";
 
 export function useSearching(numBars, searchValue, search) {

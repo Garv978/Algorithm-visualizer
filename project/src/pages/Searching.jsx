@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { searchMap } from "../algorithms/Searching";
+import { searchMap } from "../algorithms/Searching/index";
 import Slider from "../components/Slider";
 import Dropdown from "../components/Dropdown";
 import Bars from "../components/Bars";

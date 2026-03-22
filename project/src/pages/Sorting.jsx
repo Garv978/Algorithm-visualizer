@@ -7,7 +7,7 @@ import SpeedSlider from "../components/SpeedSlider";
 import WorstCase from "../components/WorstCase";
 
 import { useSorting } from "../hooks/UseSorting";
-import { algorithmMap } from "../algorithms/Sorting";
+import { algorithmMap } from "../algorithms/Sorting/index";
 
 
 export default function Sorting() {

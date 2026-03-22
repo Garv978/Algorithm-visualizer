@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { algorithmMap } from "../algorithms/Sorting/index";
-import { randomArray,sortedArray, reverseArray } from "../utils/arraygenerator";
+import { randomArray,sortedArray, reverseArray } from "../utils/arrayGenerator";
 
 export function useSorting(numBars, algorithm) {
   const [bars, setBars] = useState([]);

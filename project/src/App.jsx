@@ -4,6 +4,7 @@ import Sorting from './pages/Sorting'
 import Searching from './pages/Searching'
 import { useState } from 'react'
 import { pageMap } from './pages/index'
+import { Analytics } from "@vercel/analytics/next"
 
 const App = () => {
   const [page, setPage] = useState('sorting');
@@ -13,6 +14,7 @@ const App = () => {
       <Logo/>
       <Dropdown options={pageMap} value={page} onChange={setPage}/>
       <PageComponent/>
+      <Analytics />
     </div>
   )
 }

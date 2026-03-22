@@ -5,6 +5,7 @@ import Searching from './pages/Searching'
 import { useState } from 'react'
 import { pageMap } from './pages/index'
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 
 const App = () => {
   const [page, setPage] = useState('sorting');
@@ -15,6 +16,7 @@ const App = () => {
       <Dropdown options={pageMap} value={page} onChange={setPage}/>
       <PageComponent/>
       <Analytics />
+      <SpeedInsights />
     </div>
   )
 }

@@ -7,7 +7,7 @@ export default function Bars({ bars }) {
           className="mx-1"
           style={{
             height: `${bar.value}px`,
-            width: `${500 / bars.length}px`,
+            width: `${100 / bars.length}%`,
             backgroundColor: bar.color,
           }}
         ></div>

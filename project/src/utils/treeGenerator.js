@@ -1,7 +1,9 @@
-function makeBalls(levels, width) {
+function makeBalls(levels, containerWidth) {
   let balls = [];
-  let verticalGap = 90;
   let id = 0;
+
+  let verticalGap = window.innerWidth < 640 ? 60 : 90;
+  let width = window.innerWidth < 640 ? window.innerWidth * 0.9 : containerWidth;
 
   for (let level = 0; level < levels; level++) {
     let nodesInLevel = Math.pow(2, level);
@@ -13,9 +15,9 @@ function makeBalls(levels, width) {
         value: id + 1,
         x: gap * (i + 1),
         y: verticalGap * (level + 1),
-        state: "default",
         left: null,
         right: null,
+        state: "default",
       });
       id++;
     }

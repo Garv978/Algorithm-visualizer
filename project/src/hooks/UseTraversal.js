@@ -5,7 +5,6 @@ import {
   perfectBinaryTree,
   balancedBinaryTree,
 } from "../utils/treeGenerator";
-
 import { TraversalMap } from "../algorithms/Tree Traversals";
 
 export function useTraversal(treeType, traversal) {
@@ -26,47 +25,56 @@ export function useTraversal(treeType, traversal) {
   }, [treeType]);
 
   function generateTree(treeType) {
-    runID.current++;
-    stopTraversal.current = true;
+    runID.current++;                 // increment version
+    stopTraversal.current = true;    // signal immediate stop
     setIsTraversal(false);
 
     let newBalls;
-
     if (treeType === "Perfect") newBalls = perfectBinaryTree();
     else if (treeType === "Complete") newBalls = completeBinaryTree();
     else if (treeType === "Full") newBalls = fullBinaryTree();
     else if (treeType === "Balanced") newBalls = balancedBinaryTree();
 
+    newBalls = newBalls.map(ball => ({ ...ball, state: "default" }));
     setBalls(newBalls);
-    stopTraversal.current = false;
+
+    // allow new traversal after a short delay
+    setTimeout(() => {
+      stopTraversal.current = false;
+    }, 50);
   }
 
-async function startTraversal() {
-  if (isTraversal) return;
+  async function startTraversal() {
+    if (isTraversal) return;
 
-  setIsTraversal(true);
-  stopTraversal.current = false;
-  runID.current++;
+    setIsTraversal(true);
+    stopTraversal.current = false;
+    runID.current++;
 
-  let currentRunID = runID.current;
-  const traversalFunction = TraversalMap[traversal].traversal;
+    const currentRunID = runID.current;
+    const traversalFunction = TraversalMap[traversal].traversal;
 
-  // Reset colors before starting
-  setBalls(prev => prev.map(b => ({ ...b, state: "default" })));
+    // fresh copy of balls (reset states)
+    let freshBalls = balls.map(b => ({ ...b, state: "default" }));
+    setBalls(freshBalls);
 
-  // Start from root (index 0)
-  await traversalFunction(
-    0,              // root index
-    balls,
-    setBalls,
-    speedRef,
-    stopTraversal,
-    currentRunID,
-    runID.current
-  );
+    // give UI time to update before starting
+    await new Promise(r => setTimeout(r, 50));
 
-  setIsTraversal(false);
-}
+    // call traversal with all necessary references
+    await traversalFunction(
+      0,
+      freshBalls,
+      setBalls,
+      speedRef,
+      stopTraversal,
+      runID,          // <-- pass the ref, not just the value
+      currentRunID
+    );
+
+    setIsTraversal(false);
+  }
+
   return {
     balls,
     isTraversal,

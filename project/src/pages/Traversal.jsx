@@ -22,9 +22,8 @@ export default function Traversal() {
   } = useTraversal(treeType, traversal);
 
   return (
-    <div className="p-6 w-full">
-      {/* Top Controls */}
-      <div className="flex justify-between items-center mb-4">
+<div className="p-4 md:p-6 w-full">
+<div className="flex flex-col md:flex-row md:justify-between md:items-center gap-3 mb-4">
         <Dropdown
           options={["Perfect", "Complete", "Full", "Balanced"]}
           value={treeType}

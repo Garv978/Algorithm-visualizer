@@ -6,14 +6,14 @@ export default function Ball({ value, state, x, y }) {
 
   return (
     <div
-      className={`absolute flex items-center justify-center rounded-full border-2 text-white font-bold ${color}`}
+      className={`absolute flex items-center justify-center rounded-full border-2 text-white font-bold ${color}
+      w-8 h-8 text-xs
+      md:w-10 md:h-10 md:text-sm
+      lg:w-12 lg:h-12 lg:text-base`}
       style={{
-        left: x - 25,
-        top: y - 25,
-        width: 50,
-        height: 50,
+        left: `calc(${x}px - 16px)`,
+        top: `calc(${y}px - 16px)`,
         zIndex: 10,
-        position: "absolute",
       }}
     >
       {value}

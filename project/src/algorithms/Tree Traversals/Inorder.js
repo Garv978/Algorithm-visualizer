@@ -13,12 +13,13 @@ export async function Inorder(
     return;
 
   let node = balls[index];
+  if (!node) return;
 
   // LEFT
   if (node.left !== null) {
     await Inorder(
       node.left,
-      balls,
+      balls, // Remove structuredClone - use the same balls array
       setBalls,
       speedRef,
       stopTraversal,
@@ -51,7 +52,7 @@ export async function Inorder(
   if (node.right !== null) {
     await Inorder(
       node.right,
-      balls,
+      balls, // Remove structuredClone - use the same balls array
       setBalls,
       speedRef,
       stopTraversal,

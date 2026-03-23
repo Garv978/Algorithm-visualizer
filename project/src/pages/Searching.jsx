@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { searchMap } from "../algorithms/Searching/index";
 import Slider from "../components/Slider";
 import Dropdown from "../components/Dropdown";
@@ -38,9 +38,30 @@ export default function Searching(){
     setBars(newBars);
   };
 
+  useEffect(() => {
+    const updateBars = () => {
+      let newBars;
+
+      if (window.innerWidth < 640) {
+        newBars = 30;
+      } else if (window.innerWidth < 1024) {
+        newBars = 50;
+      } else {
+        newBars = 80;
+      }
+
+      setNumBars(newBars);
+      generateBars(newBars);
+    };
+   updateBars();
+    window.addEventListener("resize", updateBars);
+    return () => window.removeEventListener("resize", updateBars);
+  }, []);
+
+
   return (
-    <div className="p-6">
-      <div className="flex justify-between items-center">
+<div className="p-4 md:p-6 w-full">
+<div className="flex flex-col md:flex-row md:justify-between md:items-center gap-3">
         <Slider value={numBars} setValue={setNumBars} />
         <Dropdown options={searchMap} value={search} onChange={setSearch} />
       </div>
@@ -62,14 +83,28 @@ export default function Searching(){
 
       <Bars bars={bars} />
 
-<div className="flex gap-4 mt-4 justify-center text-sm">
-  <div className="flex items-center gap-1"><div className="w-4 h-4 bg-blue-500"></div> Default</div>
-  <div className="flex items-center gap-1"><div className="w-4 h-4 bg-purple-500"></div> Target</div>
-  <div className="flex items-center gap-1"><div className="w-4 h-4 bg-yellow-500"></div> Pointer</div>
-  <div className="flex items-center gap-1"><div className="w-4 h-4 bg-red-500"></div> Checking</div>
-  <div className="flex items-center gap-1"><div className="w-4 h-4 bg-gray-500"></div> Visited</div>
-  <div className="flex items-center gap-1"><div className="w-4 h-4 bg-green-500"></div> Found</div>
-  <div className="flex items-center gap-1"><div className="w-4 h-4 bg-orange-500"></div> Not Found</div>
+<div className="flex flex-wrap gap-4 mt-4 justify-center text-xs md:text-sm">
+  <div className="flex items-center gap-1">
+    <div className="w-4 h-4 bg-blue-500"></div> Default
+  </div>
+  <div className="flex items-center gap-1">
+    <div className="w-4 h-4 bg-purple-500"></div> Target
+  </div>
+  <div className="flex items-center gap-1">
+    <div className="w-4 h-4 bg-yellow-500"></div> Pointer
+  </div>
+  <div className="flex items-center gap-1">
+    <div className="w-4 h-4 bg-red-500"></div> Checking
+  </div>
+  <div className="flex items-center gap-1">
+    <div className="w-4 h-4 bg-gray-500"></div> Visited
+  </div>
+  <div className="flex items-center gap-1">
+    <div className="w-4 h-4 bg-green-500"></div> Found
+  </div>
+  <div className="flex items-center gap-1">
+    <div className="w-4 h-4 bg-orange-500"></div> Not Found
+  </div>
 </div>
 
 

@@ -11,11 +11,17 @@ export default function Dropdown({
       onChange={(e) => onChange(e.target.value)}
       className={`border p-2 rounded ${className}`}
     >
-      {Object.entries(options).map(([key, item]) => (
-        <option key={key} value={key}>
-          {item[labelKey]}
-        </option>
-      ))}
+      {Array.isArray(options)
+        ? options.map((item) => (
+            <option key={item} value={item}>
+              {item}
+            </option>
+          ))
+        : Object.entries(options).map(([key, item]) => (
+            <option key={key} value={key}>
+              {item[labelKey]}
+            </option>
+          ))}
     </select>
   );
 }

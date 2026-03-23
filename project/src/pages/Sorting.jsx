@@ -35,7 +35,7 @@ export default function Sorting() {
       <Bars bars={bars} />
 
       <Controls
-        generateBars={generateBars}
+        generateObject={generateBars}
         onStart={startSorting}
         isRunning={isSorting}
       />

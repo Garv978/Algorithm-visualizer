@@ -74,7 +74,7 @@ export default function Searching(){
 
 
       <Controls
-        generateBars={generateBars}
+        generateObject={generateBars}
         onStart={startSearching}
         isRunning={isSearching}
       />

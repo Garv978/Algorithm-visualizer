@@ -1,11 +1,4 @@
-const COLORS = {
-  0: "white",
-  1: "black",
-  2: "green",
-  3: "red",
-  4: "yellow",
-  5: "blue",
-};
+import {GRIDCOLORS as COLORS} from "../utils/colors";
 
 export default function Box({
   row,
@@ -26,13 +19,23 @@ export default function Box({
       }
 
       if (tool === "source") {
-        setSource([row, col]);
+        for (let r = 0; r < newGrid.length; r++) {
+          for (let c = 0; c < newGrid.length; c++) {
+            if (newGrid[r][c] === 2) newGrid[r][c] = 0;
+          }
+        }
         newGrid[row][col] = 2;
+        setSource([row, col]);
       }
 
       if (tool === "destination") {
-        setDestination([row, col]);
+        for (let r = 0; r < newGrid.length; r++) {
+          for (let c = 0; c < newGrid.length; c++) {
+            if (newGrid[r][c] === 3) newGrid[r][c] = 0;
+          }
+        }
         newGrid[row][col] = 3;
+        setDestination([row, col]);
       }
 
       return newGrid;
@@ -42,12 +45,13 @@ export default function Box({
   return (
     <div
       onClick={handleClick}
-      style={{
-        width: "25px",
-        height: "25px",
-        border: "1px solid #ccc",
-        backgroundColor: COLORS[type],
-      }}
+      className={`
+        w-6 h-6 md:w-7 md:h-7 
+        border border-slate-400 
+        ${COLORS[type]}
+        transition-all duration-150
+        hover:scale-110
+      `}
     />
   );
 }

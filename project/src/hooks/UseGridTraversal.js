@@ -1,8 +1,10 @@
 import { useState, useRef, useEffect } from "react";
-import { generateRandomGrid} from "../utils/gridGenerator";
+import { generateRandomGrid } from "../utils/gridGenerator";
 import { GridTraversalMap } from "../algorithms/Graph Traversals/index";
 
-export function useGridTraversal(dimension,source,traversal,destination) {
+export function useGridTraversal(dimension,traversal) {
+  const [source, setSource] = useState(null);
+  const [destination, setDestination] = useState(null);
   const [grid, setGrid] = useState([]);
   const [isTraversal, setIsTraversal] = useState(false);
   const [speed, setSpeed] = useState(50);
@@ -19,11 +21,31 @@ export function useGridTraversal(dimension,source,traversal,destination) {
     generateGrid();
   }, [dimension]);
 
-function generateGrid() {
-  const newGrid = generateRandomGrid(dimension);
-  setGrid(newGrid);
-}
+  function generateGrid() {
+    stopTraversal.current = true;
+    runID.current++;
+    setIsTraversal(false);
 
+    const newGrid = generateRandomGrid(dimension);
+
+    let src = null;
+    let dest = null;
+
+    for (let r = 0; r < dimension; r++) {
+      for (let c = 0; c < dimension; c++) {
+        if (newGrid[r][c] === 2) src = [r, c];
+        if (newGrid[r][c] === 3) dest = [r, c];
+      }
+    }
+
+    setGrid(newGrid);
+    setSource(src);
+    setDestination(dest);
+
+    setTimeout(() => {
+      stopTraversal.current = false;
+    }, 50);
+  }
   async function startTraversal() {
     if (isTraversal) return;
 
@@ -43,7 +65,7 @@ function generateGrid() {
       speedRef,
       stopTraversal,
       runID,
-      currentRunID
+      currentRunID,
     );
 
     setIsTraversal(false);
@@ -52,6 +74,10 @@ function generateGrid() {
   return {
     grid,
     setGrid,
+    source,
+    setSource,
+    destination,
+    setDestination,
     isTraversal,
     speed,
     setSpeed,

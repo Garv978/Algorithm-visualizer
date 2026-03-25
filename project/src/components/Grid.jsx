@@ -1,13 +1,12 @@
 import Box from "./Box";
-
 export default function Grid({ grid, setGrid, tool, setSource, setDestination }) {
   return (
-    <div>
+    <div className="inline-block bg-slate-700 p-2 rounded-lg">
       {grid.map((row, r) => (
-        <div key={r} style={{ display: "flex" }}>
+        <div key={r} className="flex">
           {row.map((cell, c) => (
             <Box
-              key={`${r}-${c}`}
+              key={c}
               row={r}
               col={c}
               type={cell}

@@ -1,6 +1,6 @@
 import {DFS} from "./DFS";
 import {BFS} from "./BFS";
-import {Djikstra} from "./Djikstra";
+import {Dijkstra} from "./Dijkstra";
 
 export const GridTraversalMap = {
   DFS: {
@@ -11,8 +11,8 @@ export const GridTraversalMap = {
     name: "Breadth First Search",
     traversal: BFS,
   },
-  Djikstra: {
-    name: "Djikstra's Algorithm",
-    traversal: Djikstra,
+  Dijkstra: {
+    name: "Dijkstra's Algorithm",
+    traversal: Dijkstra,
   },
 }

@@ -1,6 +1,6 @@
 import { sleep } from "../../utils/sleep";
 
-export async function BFS(
+export async function Dijkstra(
   source,
   destination,
   dimension,
@@ -13,12 +13,16 @@ export async function BFS(
 ) {
   if (!source || !destination) return;
 
-  const visited = Array.from({ length: dimension }, () =>
-    Array(dimension).fill(false)
+  const dist = Array.from({ length: dimension }, () =>
+    Array(dimension).fill(Infinity)
   );
 
   const parent = Array.from({ length: dimension }, () =>
     Array(dimension).fill(null)
+  );
+
+  const visited = Array.from({ length: dimension }, () =>
+    Array(dimension).fill(false)
   );
 
   const directions = [
@@ -28,14 +32,28 @@ export async function BFS(
     [0, -1],
   ];
 
-  const queue = [];
-  queue.push(source);
-  visited[source[0]][source[1]] = true;
+  dist[source[0]][source[1]] = 0;
 
-  while (queue.length) {
+  while (true) {
     if (stopTraversal.current || runID.current !== currentRunID) return;
 
-    const [r, c] = queue.shift();
+    let minDist = Infinity;
+    let node = null;
+
+    // Find minimum distance node
+    for (let r = 0; r < dimension; r++) {
+      for (let c = 0; c < dimension; c++) {
+        if (!visited[r][c] && dist[r][c] < minDist) {
+          minDist = dist[r][c];
+          node = [r, c];
+        }
+      }
+    }
+
+    if (!node) break;
+
+    const [r, c] = node;
+    visited[r][c] = true;
 
     // Visiting color
     setGrid((prev) => {
@@ -58,20 +76,14 @@ export async function BFS(
         nc >= 0 &&
         nr < dimension &&
         nc < dimension &&
-        !visited[nr][nc] &&
         grid[nr][nc] !== 1
       ) {
-        visited[nr][nc] = true;
-        parent[nr][nc] = [r, c];
-        queue.push([nr, nc]);
+        let weight = grid[nr][nc] === 6 ? 5 : 1;
 
-        // Mark discovered
-        setGrid((prev) => {
-          const newGrid = prev.map((row) => row.slice());
-          if (newGrid[nr][nc] !== 3)
-            newGrid[nr][nc] = 5;
-          return newGrid;
-        });
+        if (dist[r][c] + weight < dist[nr][nc]) {
+          dist[nr][nc] = dist[r][c] + weight;
+          parent[nr][nc] = [r, c];
+        }
       }
     }
   }

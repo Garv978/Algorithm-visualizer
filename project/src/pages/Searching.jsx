@@ -62,7 +62,7 @@ export default function Searching(){
   return (
 <div className="p-4 md:p-6 w-full">
 <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-3">
-        <Slider value={numBars} setValue={setNumBars} />
+        <Slider label={"number of bars"} value={numBars} setValue={setNumBars} min={10} max={100} />
         <Dropdown options={searchMap} value={search} onChange={setSearch} />
       </div>
 

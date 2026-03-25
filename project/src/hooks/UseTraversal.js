@@ -68,7 +68,7 @@ export function useTraversal(treeType, traversal) {
       setBalls,
       speedRef,
       stopTraversal,
-      runID,          // <-- pass the ref, not just the value
+      runID,       
       currentRunID
     );
 

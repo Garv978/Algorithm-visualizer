@@ -6,10 +6,9 @@ export async function Inorder(
   setBalls,
   speedRef,
   stopTraversal,
-  currentRunID,
-  runID
+  runID,currentRunID
 ) {
-  if (index === null || stopTraversal.current || currentRunID !== runID)
+  if (index === null || stopTraversal.current || currentRunID !== runID.current)
     return;
 
   let node = balls[index];
@@ -23,12 +22,12 @@ export async function Inorder(
       setBalls,
       speedRef,
       stopTraversal,
-      currentRunID,
-      runID
+      runID,
+      currentRunID
     );
   }
 
-  if (stopTraversal.current || currentRunID !== runID) return;
+  if (stopTraversal.current || currentRunID !== runID.current) return;
 
   // VISITING
   setBalls(prev => {
@@ -46,7 +45,7 @@ export async function Inorder(
     return newBalls;
   });
 
-  if (stopTraversal.current || currentRunID !== runID) return;
+  if (stopTraversal.current || currentRunID !== runID.current) return;
 
   // RIGHT
   if (node.right !== null) {
@@ -56,8 +55,8 @@ export async function Inorder(
       setBalls,
       speedRef,
       stopTraversal,
-      currentRunID,
-      runID
+      runID,
+      currentRunID
     );
   }
 }

@@ -6,10 +6,10 @@ export async function Postorder(
   setBalls,
   speedRef,
   stopTraversal,
-  currentRunID,
-  runID
+  runID,
+  currentRunID
 ) {
-  if (index === null || stopTraversal.current || currentRunID !== runID)
+  if (index === null || stopTraversal.current || currentRunID !== runID.current)
     return;
 
   let node = balls[index];
@@ -22,8 +22,8 @@ export async function Postorder(
       setBalls,
       speedRef,
       stopTraversal,
-      currentRunID,
-      runID
+      runID,
+      currentRunID
     );
   }
 
@@ -35,12 +35,12 @@ export async function Postorder(
       setBalls,
       speedRef,
       stopTraversal,
-      currentRunID,
-      runID
+      runID,
+      currentRunID
     );
   }
 
-  if (stopTraversal.current || currentRunID !== runID) return;
+  if (stopTraversal.current || currentRunID !== runID.current) return;
 
   // VISITING
   setBalls(prev => {
@@ -58,5 +58,5 @@ export async function Postorder(
     return newBalls;
   });
 
-  if (stopTraversal.current || currentRunID !== runID) return;
+  if (stopTraversal.current || currentRunID !== runID.current) return;
 }

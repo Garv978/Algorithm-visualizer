@@ -1,6 +1,7 @@
 import Sorting from "./Sorting";
 import Searching from "./Searching";
 import Traversal from "./Traversal";
+import GridTraversal from './GridTraversal';
 
 export const pageMap = {
   sorting: {
@@ -14,5 +15,9 @@ export const pageMap = {
   Treetraversal: {
     name: "Traversal algorithms for Trees",
     component: Traversal,
+  },
+  GridTraversal:{
+    name: "Traversal algorithms for Grids",
+    component: GridTraversal,
   },
 };

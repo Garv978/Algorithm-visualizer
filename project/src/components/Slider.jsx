@@ -1,14 +1,23 @@
-// components/Slider.jsx
-export default function Slider({ value, setValue }) {
+export default function Slider({
+  label,
+  value,
+  setValue,
+  min,
+  max,
+  step = 1
+}) {
   return (
     <div className="flex flex-col">
-      <label className="mb-1">Number of Bars: {value}</label>
+      <label className="mb-1">
+        {label}: {value}
+      </label>
       <input
         type="range"
-        min="5"
-        max="100"
+        min={min}
+        max={max}
+        step={step}
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={(e) => setValue(Number(e.target.value))}
         className="w-64"
       />
     </div>

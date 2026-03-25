@@ -1,13 +1,13 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+
+import { COLORS } from "../utils/colors";
 import { searchMap } from "../algorithms/Searching/index";
 import { sortedArray } from "../utils/arrayGenerator";
-import { COLORS } from "../utils/colors";
 
 export function useSearching(numBars, searchValue, search) {
   const [bars, setBars] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
   const [speed, setSpeed] = useState(50);
-
   const speedRef = useRef(speed);
   const stopSearching = useRef(false);
   const runID = useRef(0);
@@ -57,7 +57,7 @@ export function useSearching(numBars, searchValue, search) {
       searchValue,
       stopSearching,
       currentRunID,
-      runID
+      runID,
     );
 
     setIsSearching(false);

@@ -1,5 +1,5 @@
-import { sleep } from "../../utils/sleep";
 import { COLORS } from "../../utils/colors";
+import { sleep } from "../../utils/sleep";
 
 export async function LinearSearch(
   bars,
@@ -11,7 +11,7 @@ export async function LinearSearch(
   runId
 ) {
   let arr = [...bars];
-
+  const startTime = performance.now();
   for (let i = 0; i < arr.length; i++) {
     if (currentRunId !== runId.current || stopSearching.current) return;
 

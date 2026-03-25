@@ -10,8 +10,12 @@ export async function DFS(
   stopTraversal,
   runID,
   currentRunID,
+  setStats
 ) {
   if (!source || !destination) return;
+
+  const startTime = performance.now();
+  let nodesVisited = 0;
 
   const visited = Array.from({ length: dimension }, () =>
     Array(dimension).fill(false)
@@ -46,22 +50,19 @@ export async function DFS(
     if (!isValid(r, c)) return false;
 
     visited[r][c] = true;
+    nodesVisited++;
 
-    // Visiting color
+    // visiting color
     setGrid((prev) => {
       const newGrid = prev.map((row) => row.slice());
-      if (newGrid[r][c] !== 2 && newGrid[r][c] !== 3) {
+      if (newGrid[r][c] !== 2 && newGrid[r][c] !== 3)
         newGrid[r][c] = 4;
-      }
       return newGrid;
     });
 
     await sleep(speedRef.current);
 
-    // Destination found
-    if (r === destination[0] && c === destination[1]) {
-      return true;
-    }
+    if (r === destination[0] && c === destination[1]) return true;
 
     for (let [dr, dc] of directions) {
       const nr = r + dr;
@@ -73,39 +74,45 @@ export async function DFS(
       }
     }
 
-    // Backtrack color
+    // backtrack color
     setGrid((prev) => {
       const newGrid = prev.map((row) => row.slice());
-      if (newGrid[r][c] !== 2 && newGrid[r][c] !== 3) {
+      if (newGrid[r][c] !== 2 && newGrid[r][c] !== 3)
         newGrid[r][c] = 5;
-      }
       return newGrid;
     });
 
     await sleep(speedRef.current);
-
     return false;
   }
 
-  const found = await dfs(source[0], source[1]);
+  await dfs(source[0], source[1]);
 
-  // Draw final path
-  if (found) {
-    let cur = destination;
+  // draw path
+  let pathLength = 0;
+  let cur = destination;
 
-    while (cur) {
-      const [r, c] = cur;
+  while (cur) {
+    pathLength++;
+    const [r, c] = cur;
 
-      setGrid((prev) => {
-        const newGrid = prev.map((row) => row.slice());
-        if (newGrid[r][c] !== 2 && newGrid[r][c] !== 3) {
-          newGrid[r][c] = 6;
-        }
-        return newGrid;
-      });
+    setGrid((prev) => {
+      const newGrid = prev.map((row) => row.slice());
+      if (newGrid[r][c] !== 2 && newGrid[r][c] !== 3)
+        newGrid[r][c] = 6;
+      return newGrid;
+    });
 
-      await sleep(30);
-      cur = parent[r][c];
-    }
+    await sleep(30);
+    cur = parent[r][c];
   }
+
+  const endTime = performance.now();
+
+  setStats({
+    algorithm: "DFS",
+    time: (endTime - startTime).toFixed(2),
+    visited: nodesVisited,
+    pathLength: pathLength,
+  });
 }

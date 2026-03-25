@@ -9,9 +9,13 @@ export async function Dijkstra(
   speedRef,
   stopTraversal,
   runID,
-  currentRunID
+  currentRunID,
+  setStats
 ) {
   if (!source || !destination) return;
+
+  const startTime = performance.now();
+  let nodesVisited = 0;
 
   const dist = Array.from({ length: dimension }, () =>
     Array(dimension).fill(Infinity)
@@ -35,12 +39,11 @@ export async function Dijkstra(
   dist[source[0]][source[1]] = 0;
 
   while (true) {
-    if (stopTraversal.current || runID.current !== currentRunID) return;
+    if (stopTraversal.current || runID.current !== currentRunID) break;
 
     let minDist = Infinity;
     let node = null;
 
-    // Find minimum distance node
     for (let r = 0; r < dimension; r++) {
       for (let c = 0; c < dimension; c++) {
         if (!visited[r][c] && dist[r][c] < minDist) {
@@ -54,8 +57,9 @@ export async function Dijkstra(
 
     const [r, c] = node;
     visited[r][c] = true;
+    nodesVisited++;
 
-    // Visiting color
+    // visiting color
     setGrid((prev) => {
       const newGrid = prev.map((row) => row.slice());
       if (newGrid[r][c] !== 2 && newGrid[r][c] !== 3)
@@ -88,9 +92,12 @@ export async function Dijkstra(
     }
   }
 
-  // Draw shortest path
+  // draw path
+  let pathLength = 0;
   let cur = destination;
+
   while (cur) {
+    pathLength++;
     const [r, c] = cur;
 
     setGrid((prev) => {
@@ -103,4 +110,13 @@ export async function Dijkstra(
     await sleep(30);
     cur = parent[r][c];
   }
+
+  const endTime = performance.now();
+
+  setStats({
+    algorithm: "Dijkstra",
+    time: (endTime - startTime).toFixed(2),
+    visited: nodesVisited,
+    pathLength: pathLength,
+  });
 }

@@ -1,6 +1,7 @@
-import { useState, useRef, useEffect } from "react";
-import { generateRandomGrid } from "../utils/gridGenerator";
+import { useEffect, useRef, useState } from "react";
+
 import { GridTraversalMap } from "../algorithms/Graph Traversals/index";
+import { generateRandomGrid } from "../utils/gridGenerator";
 
 export function useGridTraversal(dimension,traversal) {
   const [source, setSource] = useState(null);
@@ -8,6 +9,7 @@ export function useGridTraversal(dimension,traversal) {
   const [grid, setGrid] = useState([]);
   const [isTraversal, setIsTraversal] = useState(false);
   const [speed, setSpeed] = useState(50);
+  const [stats, setStats] = useState(null);
 
   const speedRef = useRef(speed);
   const stopTraversal = useRef(false);
@@ -66,6 +68,7 @@ export function useGridTraversal(dimension,traversal) {
       stopTraversal,
       runID,
       currentRunID,
+      setStats
     );
 
     setIsTraversal(false);
@@ -83,5 +86,6 @@ export function useGridTraversal(dimension,traversal) {
     setSpeed,
     startTraversal,
     generateGrid,
+    stats,
   };
 }

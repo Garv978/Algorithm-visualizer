@@ -1,13 +1,14 @@
-import { useState,useEffect } from "react";
-import { searchMap } from "../algorithms/Searching/index";
-import Slider from "../components/Slider";
-import Dropdown from "../components/Dropdown";
+import { useEffect, useState } from "react";
+
 import Bars from "../components/Bars";
 import Controls from "../components/Controls";
+import Dropdown from "../components/Dropdown";
+import Slider from "../components/Slider";
 import SpeedSlider from "../components/SpeedSlider";
+import { searchMap } from "../algorithms/Searching/index";
 import { useSearching } from "../hooks/UseSearching";
 
-export default function Searching(){
+export default function Searching() {
   const [numBars, setNumBars] = useState(20);
   const [search, setSearch] = useState("linear");
   const [searchValue, setSearchValue] = useState(null);
@@ -53,16 +54,21 @@ export default function Searching(){
       setNumBars(newBars);
       generateBars(newBars);
     };
-   updateBars();
+    updateBars();
     window.addEventListener("resize", updateBars);
     return () => window.removeEventListener("resize", updateBars);
   }, []);
 
-
   return (
-<div className="p-4 md:p-6 w-full">
-<div className="flex flex-col md:flex-row md:justify-between md:items-center gap-3">
-        <Slider label={"number of bars"} value={numBars} setValue={setNumBars} min={10} max={100} />
+    <div className="p-4 md:p-6 w-full">
+      <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-3">
+        <Slider
+          label={"number of bars"}
+          value={numBars}
+          setValue={setNumBars}
+          min={10}
+          max={100}
+        />
         <Dropdown options={searchMap} value={search} onChange={setSearch} />
       </div>
 
@@ -77,44 +83,43 @@ export default function Searching(){
 
       {searchValue !== null && (
         <p className="mt-2">
-          Target: <span className="text-purple-600 font-bold">{searchValue}</span>
+          Target:{" "}
+          <span className="text-purple-600 font-bold">{searchValue}</span>
         </p>
       )}
 
       <Bars bars={bars} />
 
-<div className="flex flex-wrap gap-4 mt-4 justify-center text-xs md:text-sm">
-  <div className="flex items-center gap-1">
-    <div className="w-4 h-4 bg-blue-500"></div> Default
-  </div>
-  <div className="flex items-center gap-1">
-    <div className="w-4 h-4 bg-purple-500"></div> Target
-  </div>
-  <div className="flex items-center gap-1">
-    <div className="w-4 h-4 bg-yellow-500"></div> Pointer
-  </div>
-  <div className="flex items-center gap-1">
-    <div className="w-4 h-4 bg-red-500"></div> Checking
-  </div>
-  <div className="flex items-center gap-1">
-    <div className="w-4 h-4 bg-gray-500"></div> Visited
-  </div>
-  <div className="flex items-center gap-1">
-    <div className="w-4 h-4 bg-green-500"></div> Found
-  </div>
-  <div className="flex items-center gap-1">
-    <div className="w-4 h-4 bg-orange-500"></div> Not Found
-  </div>
-</div>
-
+      <div className="flex flex-wrap gap-4 mt-4 justify-center text-xs md:text-sm">
+        <div className="flex items-center gap-1">
+          <div className="w-4 h-4 bg-blue-500"></div> Default
+        </div>
+        <div className="flex items-center gap-1">
+          <div className="w-4 h-4 bg-purple-500"></div> Target
+        </div>
+        <div className="flex items-center gap-1">
+          <div className="w-4 h-4 bg-yellow-500"></div> Pointer
+        </div>
+        <div className="flex items-center gap-1">
+          <div className="w-4 h-4 bg-red-500"></div> Checking
+        </div>
+        <div className="flex items-center gap-1">
+          <div className="w-4 h-4 bg-gray-500"></div> Visited
+        </div>
+        <div className="flex items-center gap-1">
+          <div className="w-4 h-4 bg-green-500"></div> Found
+        </div>
+        <div className="flex items-center gap-1">
+          <div className="w-4 h-4 bg-orange-500"></div> Not Found
+        </div>
+      </div>
 
       <Controls
         generateObject={generateBars}
         onStart={startSearching}
         isRunning={isSearching}
       />
-
       <SpeedSlider speed={speed} setSpeed={setSpeed} />
     </div>
   );
-};
+}

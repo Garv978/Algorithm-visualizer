@@ -1,11 +1,12 @@
-import { GridTraversalMap } from "../algorithms/Graph Traversals/index";
-import { useGridTraversal } from "../hooks/UseGridTraversal";
-import Grid from "../components/Grid";
-import Dropdown from "../components/Dropdown";
+import AnalyticsBox from "../components/AnalyticsBox";
 import Controls from "../components/Controls";
-import SpeedSlider from "../components/SpeedSlider";
-import { useState } from "react";
+import Dropdown from "../components/Dropdown";
+import Grid from "../components/Grid";
+import { GridTraversalMap } from "../algorithms/Graph Traversals/index";
 import Slider from "../components/Slider";
+import SpeedSlider from "../components/SpeedSlider";
+import { useGridTraversal } from "../hooks/UseGridTraversal";
+import { useState } from "react";
 
 export default function GridTraversal() {
   const [dimension, setDimension] = useState(10);
@@ -24,6 +25,7 @@ export default function GridTraversal() {
     setSpeed,
     startTraversal,
     generateGrid,
+    stats,
   } = useGridTraversal(dimension, traversal);
 
   return (
@@ -50,7 +52,7 @@ export default function GridTraversal() {
           onChange={setTool}
         />
       </div>
-
+      
       {/* Grid Area */}
       <div className="bg-gray-100 rounded-xl p-4 shadow flex justify-center items-center mb-4">
         <Grid
@@ -88,6 +90,7 @@ export default function GridTraversal() {
           onStart={startTraversal}
           isRunning={isTraversal}
         />
+      <AnalyticsBox type="grid" stats={stats} />
 
         <SpeedSlider speed={speed} setSpeed={setSpeed} />
       </div>

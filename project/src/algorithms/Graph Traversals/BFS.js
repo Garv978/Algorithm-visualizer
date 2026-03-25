@@ -9,10 +9,14 @@ export async function BFS(
   speedRef,
   stopTraversal,
   runID,
-  currentRunID
+  currentRunID,
+  setStats
 ) {
   if (!source || !destination) return;
 
+  const startTime = performance.now();
+  let nodesVisited = 0;
+    
   const visited = Array.from({ length: dimension }, () =>
     Array(dimension).fill(false)
   );
@@ -33,9 +37,10 @@ export async function BFS(
   visited[source[0]][source[1]] = true;
 
   while (queue.length) {
-    if (stopTraversal.current || runID.current !== currentRunID) return;
+    if (stopTraversal.current || runID.current !== currentRunID) break;
 
     const [r, c] = queue.shift();
+    nodesVisited++;
 
     // Visiting color
     setGrid((prev) => {
@@ -76,9 +81,12 @@ export async function BFS(
     }
   }
 
+  
+let pathlength = 0;
   // Draw shortest path
   let cur = destination;
   while (cur) {
+    pathlength++;
     const [r, c] = cur;
 
     setGrid((prev) => {
@@ -91,4 +99,12 @@ export async function BFS(
     await sleep(30);
     cur = parent[r][c];
   }
+  const endTime = performance.now();
+  console.log("SET STATS")
+  setStats({
+    algorithm: "BFS",
+    time: (endTime - startTime).toFixed(2),
+    visited: nodesVisited,
+    pathLength: pathlength,
+  });
 }

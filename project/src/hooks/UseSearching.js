@@ -4,10 +4,9 @@ import { COLORS } from "../utils/colors";
 import { searchMap } from "../algorithms/Searching/index";
 import { sortedArray } from "../utils/arrayGenerator";
 
-export function useSearching(numBars, searchValue, search) {
+export function useSearching(numBars, searchValue, search,speed) {
   const [bars, setBars] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
-  const [speed, setSpeed] = useState(50);
   const speedRef = useRef(speed);
   const stopSearching = useRef(false);
   const runID = useRef(0);
@@ -67,8 +66,6 @@ export function useSearching(numBars, searchValue, search) {
     bars,
     setBars,
     isSearching,
-    speed,
-    setSpeed,
     startSearching,
     generateBars,
   };

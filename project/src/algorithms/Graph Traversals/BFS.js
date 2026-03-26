@@ -16,7 +16,7 @@ export async function BFS(
 
   const startTime = performance.now();
   let nodesVisited = 0;
-    
+
   const visited = Array.from({ length: dimension }, () =>
     Array(dimension).fill(false)
   );
@@ -32,14 +32,18 @@ export async function BFS(
     [0, -1],
   ];
 
-  const queue = [];
+  let queue = [];
+  let front = 0;
+
   queue.push(source);
   visited[source[0]][source[1]] = true;
 
-  while (queue.length) {
-    if (stopTraversal.current || runID.current !== currentRunID) break;
+  let found = false;
 
-    const [r, c] = queue.shift();
+  while (front < queue.length) {
+    if (stopTraversal.current || runID.current !== currentRunID) return;
+
+    const [r, c] = queue[front++];
     nodesVisited++;
 
     // Visiting color
@@ -50,9 +54,12 @@ export async function BFS(
       return newGrid;
     });
 
-    await sleep(speedRef.current);
+    await sleep(Number(speedRef.current));
 
-    if (r === destination[0] && c === destination[1]) break;
+    if (r === destination[0] && c === destination[1]) {
+      found = true;
+      break;
+    }
 
     for (let [dr, dc] of directions) {
       const nr = r + dr;
@@ -70,7 +77,7 @@ export async function BFS(
         parent[nr][nc] = [r, c];
         queue.push([nr, nc]);
 
-        // Mark discovered
+        // Discovered color
         setGrid((prev) => {
           const newGrid = prev.map((row) => row.slice());
           if (newGrid[nr][nc] !== 3)
@@ -81,30 +88,36 @@ export async function BFS(
     }
   }
 
-  
-let pathlength = 0;
   // Draw shortest path
-  let cur = destination;
-  while (cur) {
-    pathlength++;
-    const [r, c] = cur;
+  let pathLength = 0;
 
-    setGrid((prev) => {
-      const newGrid = prev.map((row) => row.slice());
-      if (newGrid[r][c] !== 2 && newGrid[r][c] !== 3)
-        newGrid[r][c] = 6;
-      return newGrid;
-    });
+  if (found) {
+    let cur = destination;
 
-    await sleep(30);
-    cur = parent[r][c];
+    while (cur) {
+      if (stopTraversal.current || runID.current !== currentRunID) return;
+
+      pathLength++;
+      const [r, c] = cur;
+
+      setGrid((prev) => {
+        const newGrid = prev.map((row) => row.slice());
+        if (newGrid[r][c] !== 2 && newGrid[r][c] !== 3)
+          newGrid[r][c] = 6;
+        return newGrid;
+      });
+
+      await sleep(30);
+      cur = parent[r][c];
+    }
   }
+
   const endTime = performance.now();
-  console.log("SET STATS")
+
   setStats({
     algorithm: "BFS",
     time: (endTime - startTime).toFixed(2),
     visited: nodesVisited,
-    pathLength: pathlength,
+    pathLength: pathLength,
   });
 }

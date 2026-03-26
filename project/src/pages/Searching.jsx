@@ -13,12 +13,19 @@ export default function Searching() {
   const [numBars, setNumBars] = useState(20);
   const [search, setSearch] = useState("linear");
   const [searchValue, setSearchValue] = useState(null);
-
-  // Global state
-  const { speed, setSpeed } = useAlgorithmState();
-
-  // Visualization state
-  const { bars, setBars, generateBars, startSearching, isSearching } = useSearching(numBars);
+  
+const {
+  speed,
+  setSpeed,
+} = useAlgorithmState();
+  
+  const {
+    bars,
+    setBars,
+    isSearching,
+    startSearching,
+    generateBars,
+  } = useSearching(numBars, searchValue, search,speed);
 
   const pickRandomTarget = () => {
     if (bars.length === 0) return;
@@ -27,6 +34,7 @@ export default function Searching() {
     const target = bars[randomIndex].value;
     setSearchValue(target);
 
+    // Reset + highlight target
     const newBars = bars.map((bar, index) => ({
       ...bar,
       color: index === randomIndex ? "purple" : "blue",
@@ -53,7 +61,7 @@ export default function Searching() {
     updateBars();
     window.addEventListener("resize", updateBars);
     return () => window.removeEventListener("resize", updateBars);
-  }, [generateBars]);
+  }, []);
 
   return (
     <div className="p-4 md:p-6 w-full">
@@ -111,7 +119,7 @@ export default function Searching() {
       </div>
 
       <Controls
-        generateObject={() => generateBars(numBars)}
+        generateObject={generateBars}
         onStart={startSearching}
         isRunning={isSearching}
       />

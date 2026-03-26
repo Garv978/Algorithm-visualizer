@@ -1,16 +1,16 @@
-import { useState, useRef, useEffect } from "react";
 import {
-  fullBinaryTree,
-  completeBinaryTree,
-  perfectBinaryTree,
   balancedBinaryTree,
+  completeBinaryTree,
+  fullBinaryTree,
+  perfectBinaryTree,
 } from "../utils/treeGenerator";
+import { useEffect, useRef, useState } from "react";
+
 import { TraversalMap } from "../algorithms/Tree Traversals";
 
-export function useTraversal(treeType, traversal) {
+export function useTraversal(treeType, traversal,speed) {
   const [balls, setBalls] = useState([]);
   const [isTraversal, setIsTraversal] = useState(false);
-  const [speed, setSpeed] = useState(50);
 
   const speedRef = useRef(speed);
   const stopTraversal = useRef(false);
@@ -78,8 +78,6 @@ export function useTraversal(treeType, traversal) {
   return {
     balls,
     isTraversal,
-    speed,
-    setSpeed,
     startTraversal,
     generateTree,
   };

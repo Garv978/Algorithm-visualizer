@@ -16,7 +16,7 @@ export default function Traversal() {
   const { speed, setSpeed } = useAlgorithmState();
 
   const { balls, isTraversal, startTraversal, generateTree } =
-    useTraversal(treeType, traversal);
+    useTraversal(treeType, traversal,speed);
 
   return (
     <div className="p-4 md:p-6 w-full">

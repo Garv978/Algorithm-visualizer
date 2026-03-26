@@ -1,62 +1,103 @@
-import Balls from "../components/Balls";
+import AnalyticsBox from "../components/AnalyticsBox";
 import Controls from "../components/Controls";
 import Dropdown from "../components/Dropdown";
-import Edge from "../components/Edge";
+import Grid from "../components/Grid";
+import { GridTraversalMap } from "../algorithms/Graph Traversals/index";
+import Slider from "../components/Slider";
 import SpeedSlider from "../components/SpeedSlider";
-import { TraversalMap } from "../algorithms/Tree Traversals/index";
-import TreeArea from "../components/TreeArea";
 import { useAlgorithmState } from "../store/useAlgorithmState";
+import {useGridTraversal} from "../hooks/useGridTraversal";
 import { useState } from "react";
-import { useTraversal } from "../hooks/UseTraversal";
 
-export default function Traversal() {
-  const [treeType, setTreeType] = useState("Perfect");
-  const [traversal, setTraversal] = useState("Inorder");
+export default function GridTraversal() {
+  const [dimension, setDimension] = useState(10);
+  const [traversal, setTraversal] = useState("DFS");
+  const [tool, setTool] = useState("wall");
 
-  const { speed, setSpeed } = useAlgorithmState();
+const {
+  speed,
+  setSpeed,
+} = useAlgorithmState();
 
-  const { balls, isTraversal, startTraversal, generateTree } =
-    useTraversal(treeType, traversal);
+  const {
+    grid,
+    setGrid,
+    source,
+    setSource,
+    destination,
+    setDestination,
+    isTraversal,
+    startTraversal,
+    generateGrid,
+    stats,
+  } = useGridTraversal(dimension, traversal,speed);
 
   return (
-    <div className="p-4 md:p-6 w-full">
-      <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-3 mb-4">
-        <Dropdown
-          options={["Perfect", "Complete", "Full", "Balanced"]}
-          value={treeType}
-          onChange={setTreeType}
+    <div className="min-h-screen bg-white text-black p-4 md:p-6 w-full">
+      {/* Top Controls */}
+      <div className="bg-gray-100 rounded-xl p-4 mb-4 shadow flex flex-col md:flex-row md:justify-between md:items-center gap-4">
+        <Slider
+          label={"Grid Size"}
+          value={dimension}
+          setValue={setDimension}
+          min={5}
+          max={20}
         />
 
         <Dropdown
-          options={TraversalMap}
+          options={GridTraversalMap}
           value={traversal}
           onChange={setTraversal}
         />
+
+        <Dropdown
+          options={["wall", "source", "destination"]}
+          value={tool}
+          onChange={setTool}
+        />
+      </div>
+      
+      {/* Grid Area */}
+      <div className="bg-gray-100 rounded-xl p-4 shadow flex justify-center items-center mb-4">
+        <Grid
+          grid={grid}
+          setGrid={setGrid}
+          tool={tool}
+          setSource={setSource}
+          setDestination={setDestination}
+        />
       </div>
 
-      <TreeArea>
-        {balls.map((ball) => {
-          const left = balls[ball.left];
-          const right = balls[ball.right];
+      {/* Legend */}
+      <div className="flex gap-4 mt-3 text-sm mb-4">
+        <div className="flex items-center gap-1">
+          <div className="w-4 h-4 bg-green-500"></div> Source
+        </div>
+        <div className="flex items-center gap-1">
+          <div className="w-4 h-4 bg-red-500"></div> Destination
+        </div>
+        <div className="flex items-center gap-1">
+          <div className="w-4 h-4 bg-black"></div> Wall
+        </div>
+        <div className="flex items-center gap-1">
+          <div className="w-4 h-4 bg-yellow-400"></div> Visiting
+        </div>
+        <div className="flex items-center gap-1">
+          <div className="w-4 h-4 bg-blue-500"></div> Visited
+        </div>
+      </div>
 
-          return (
-            <div key={ball.id}>
-              {left && <Edge x1={ball.x} y1={ball.y} x2={left.x} y2={left.y} />}
-              {right && <Edge x1={ball.x} y1={ball.y} x2={right.x} y2={right.y} />}
-            </div>
-          );
-        })}
+      {/* Bottom Controls */}
+      <div className="bg-gray-100 rounded-xl p-4 shadow flex flex-col md:flex-row justify-between items-center gap-4">
+        <Controls
+          generateObject={generateGrid}
+          onStart={startTraversal}
+          isRunning={isTraversal}
+        />
+      <AnalyticsBox type="grid" stats={stats} />
 
-        <Balls balls={balls} />
-      </TreeArea>
-
-      <Controls
-        generateObject={() => generateTree(treeType)}
-        onStart={startTraversal}
-        isRunning={isTraversal}
-      />
-
-      <SpeedSlider speed={speed} setSpeed={setSpeed} />
+        <SpeedSlider speed={speed} setSpeed={setSpeed} />
+      </div>
     </div>
   );
 }

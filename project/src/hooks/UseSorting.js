@@ -1,12 +1,11 @@
-import { useState, useRef, useEffect } from "react";
-import { algorithmMap } from "../algorithms/Sorting/index";
-import { randomArray,sortedArray, reverseArray } from "../utils/arrayGenerator";
+import { randomArray, reverseArray, sortedArray } from "../utils/arrayGenerator";
+import { useEffect, useRef, useState } from "react";
 
-export function useSorting(numBars, algorithm) {
+import { algorithmMap } from "../algorithms/Sorting/index";
+
+export function useSorting(numBars, algorithm,speed) {
   const [bars, setBars] = useState([]);
   const [isSorting, setIsSorting] = useState(false);
-  const [speed, setSpeed] = useState(50);
-
   const speedRef = useRef(speed);
   const stopSorting = useRef(false);
   const runID = useRef(0);
@@ -70,8 +69,6 @@ export function useSorting(numBars, algorithm) {
     bars,
     setBars,
     isSorting,
-    speed,
-    setSpeed,
     startSorting,
     generateBars,
     generateWorstCase,

@@ -22,7 +22,7 @@ export default function Sorting() {
     startSorting,
     isSorting,
     generateWorstCase
-  } = useSorting(numBars, algorithm);
+  } = useSorting(numBars, algorithm,speed);
 
   useEffect(() => {
     const updateBars = () => {

@@ -1,26 +1,27 @@
-import { useState, useEffect } from "react";
-import Slider from "../components/Slider";
-import Dropdown from "../components/Dropdown";
+import { useEffect, useState } from "react";
+
 import Bars from "../components/Bars";
 import Controls from "../components/Controls";
+import Dropdown from "../components/Dropdown";
+import Slider from "../components/Slider";
 import SpeedSlider from "../components/SpeedSlider";
 import WorstCase from "../components/WorstCase";
-
-import { useSorting } from "../hooks/UseSorting";
 import { algorithmMap } from "../algorithms/Sorting/index";
+import { useAlgorithmState } from "../store/useAlgorithmState";
+import { useSorting } from "../hooks/UseSorting";
 
 export default function Sorting() {
   const [numBars, setNumBars] = useState(20);
   const [algorithm, setAlgorithm] = useState("bubble");
 
+  const { speed, setSpeed } = useAlgorithmState();
+
   const {
     bars,
-    isSorting,
-    speed,
-    setSpeed,
-    startSorting,
     generateBars,
-    generateWorstCase,
+    startSorting,
+    isSorting,
+    generateWorstCase
   } = useSorting(numBars, algorithm);
 
   useEffect(() => {

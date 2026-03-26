@@ -1,20 +1,21 @@
-import Logo from './components/Logo'
-import Dropdown from './components/Dropdown'
-import Sorting from './pages/Sorting'
-import Searching from './pages/Searching'
-import { useState } from 'react'
-import { pageMap } from './pages/index'
+import { AlgorithmStateProvider } from "./store/AlgorithmContext";
 import { Analytics } from "@vercel/analytics/react";
+import Dropdown from './components/Dropdown'
+import Logo from './components/Logo'
+import { pageMap } from './pages/index'
+import { useState } from 'react'
 
 const App = () => {
   const [page, setPage] = useState('sorting');
   const PageComponent = pageMap[page].component
   return (
     <div className="max-w-6xl mx-auto">
+      <AlgorithmStateProvider>
       <Logo/>
       <Dropdown options={pageMap} value={page} onChange={setPage}/>
       <PageComponent/>
       <Analytics />
+      </AlgorithmStateProvider>
     </div>
   )
 }

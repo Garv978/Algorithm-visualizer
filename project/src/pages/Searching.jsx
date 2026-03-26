@@ -6,6 +6,7 @@ import Dropdown from "../components/Dropdown";
 import Slider from "../components/Slider";
 import SpeedSlider from "../components/SpeedSlider";
 import { searchMap } from "../algorithms/Searching/index";
+import { useAlgorithmState } from "../store/useAlgorithmState";
 import { useSearching } from "../hooks/UseSearching";
 
 export default function Searching() {
@@ -13,15 +14,11 @@ export default function Searching() {
   const [search, setSearch] = useState("linear");
   const [searchValue, setSearchValue] = useState(null);
 
-  const {
-    bars,
-    setBars,
-    isSearching,
-    speed,
-    setSpeed,
-    startSearching,
-    generateBars,
-  } = useSearching(numBars, searchValue, search);
+  // Global state
+  const { speed, setSpeed } = useAlgorithmState();
+
+  // Visualization state
+  const { bars, setBars, generateBars, startSearching, isSearching } = useSearching(numBars);
 
   const pickRandomTarget = () => {
     if (bars.length === 0) return;
@@ -30,7 +27,6 @@ export default function Searching() {
     const target = bars[randomIndex].value;
     setSearchValue(target);
 
-    // Reset + highlight target
     const newBars = bars.map((bar, index) => ({
       ...bar,
       color: index === randomIndex ? "purple" : "blue",
@@ -57,7 +53,7 @@ export default function Searching() {
     updateBars();
     window.addEventListener("resize", updateBars);
     return () => window.removeEventListener("resize", updateBars);
-  }, []);
+  }, [generateBars]);
 
   return (
     <div className="p-4 md:p-6 w-full">
@@ -115,7 +111,7 @@ export default function Searching() {
       </div>
 
       <Controls
-        generateObject={generateBars}
+        generateObject={() => generateBars(numBars)}
         onStart={startSearching}
         isRunning={isSearching}
       />

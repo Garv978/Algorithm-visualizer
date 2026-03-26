@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 
-import { COLORS } from "../utils/colors";
-import { searchMap } from "../algorithms/Searching/index";
-import { sortedArray } from "../utils/arrayGenerator";
+import { COLORS } from "../../utils/colors";
+import { searchMap } from "../../algorithms/Searching/index";
+import { sortedArray } from "../../utils/arrayGenerator";
 
 export function useSearching(numBars, searchValue, search,speed) {
   const [bars, setBars] = useState([]);

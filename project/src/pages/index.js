@@ -1,23 +1,13 @@
-import Sorting from "./Sorting";
-import Searching from "./Searching";
-import Traversal from "./Traversal";
-import GridTraversal from './GridTraversal';
+import  Algorithm  from "./Algorithm";
+import DataStructures from "./DataStructures";
 
-export const pageMap = {
-  sorting: {
-    name: "Sorting Algorithms",
-    component: Sorting,
+export const DsaMap = {
+  Algorithm: {
+    name: "Algorithms",
+    type: Algorithm,
   },
-  searching: {
-    name: "Searching Algorithms",
-    component: Searching,
-  },
-  Treetraversal: {
-    name: "Traversal algorithms for Trees",
-    component: Traversal,
-  },
-  GridTraversal:{
-    name: "Traversal algorithms for Grids",
-    component: GridTraversal,
+  DataStructures: {
+    name: "Data Structures",
+    type: DataStructures,
   },
 };

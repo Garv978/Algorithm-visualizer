@@ -1,7 +1,7 @@
-import { randomArray, reverseArray, sortedArray } from "../utils/arrayGenerator";
+import { randomArray, reverseArray, sortedArray } from "../../utils/arrayGenerator";
 import { useEffect, useRef, useState } from "react";
 
-import { algorithmMap } from "../algorithms/Sorting/index";
+import { algorithmMap } from "../../algorithms/Sorting/index";
 
 export function useSorting(numBars, algorithm,speed) {
   const [bars, setBars] = useState([]);

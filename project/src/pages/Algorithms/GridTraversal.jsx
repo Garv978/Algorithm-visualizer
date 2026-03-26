@@ -1,12 +1,12 @@
-import AnalyticsBox from "../components/AnalyticsBox";
-import Controls from "../components/Controls";
-import Dropdown from "../components/Dropdown";
-import Grid from "../components/Grid";
-import { GridTraversalMap } from "../algorithms/Graph Traversals/index";
-import Slider from "../components/Slider";
-import SpeedSlider from "../components/SpeedSlider";
-import { useAlgorithmState } from "../store/useAlgorithmState";
-import {useGridTraversal} from "../hooks/useGridTraversal";
+import AnalyticsBox from "../../components/AnalyticsBox";
+import Controls from "../../components/Controls";
+import Dropdown from "../../components/Dropdown";
+import Grid from "../../components/Grid";
+import { GridTraversalMap } from "../../algorithms/Graph Traversals/index";
+import Slider from "../../components/Slider";
+import SpeedSlider from "../../components/SpeedSlider";
+import { useAlgorithmState } from "../../store/useAlgorithmState";
+import {useGridTraversal} from "../../hooks/Algorithms/UseGridTraversal";
 import { useState } from "react";
 
 export default function GridTraversal() {

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
-import { GridTraversalMap } from "../algorithms/Graph Traversals/index";
-import { generateRandomGrid } from "../utils/gridGenerator";
+import { GridTraversalMap } from "../../algorithms/Graph Traversals/index";
+import { generateRandomGrid } from "../../utils/gridGenerator";
 
 export function useGridTraversal(dimension,traversal,speed) {
   const [source, setSource] = useState(null);

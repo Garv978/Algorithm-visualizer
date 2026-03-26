@@ -1,13 +1,13 @@
-import Balls from "../components/Balls";
-import Controls from "../components/Controls";
-import Dropdown from "../components/Dropdown";
-import Edge from "../components/Edge";
-import SpeedSlider from "../components/SpeedSlider";
-import { TraversalMap } from "../algorithms/Tree Traversals/index";
-import TreeArea from "../components/TreeArea";
-import { useAlgorithmState } from "../store/useAlgorithmState";
+import Balls from "../../components/Balls";
+import Controls from "../../components/Controls";
+import Dropdown from "../../components/Dropdown";
+import Edge from "../../components/Edge";
+import SpeedSlider from "../../components/SpeedSlider";
+import { TraversalMap } from "../../algorithms/Tree Traversals/index";
+import TreeArea from "../../components/TreeArea";
+import { useAlgorithmState } from "../../store/useAlgorithmState";
 import { useState } from "react";
-import { useTraversal } from "../hooks/UseTraversal";
+import { useTraversal } from "../../hooks/Algorithms/UseTraversal";
 
 export default function Traversal() {
   const [treeType, setTreeType] = useState("Perfect");

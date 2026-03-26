@@ -5,12 +5,15 @@ export const AlgorithmContext = createContext();
 export const AlgorithmStateProvider = ({ children }) => {
   const [speed, setSpeed] = useState(100);
   const [isRunning, setIsRunning] = useState(false);
-
+  const [numBars, setNumBars] = useState(20);
+  
   const value = {
     speed,
     setSpeed,
     isRunning,
-    setIsRunning
+    setIsRunning,
+    numBars,
+    setNumBars,
   };
 
   return (

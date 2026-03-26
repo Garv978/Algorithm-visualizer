@@ -1,22 +1,23 @@
 import { useEffect, useState } from "react";
 
-import Bars from "../components/Bars";
-import Controls from "../components/Controls";
-import Dropdown from "../components/Dropdown";
-import Slider from "../components/Slider";
-import SpeedSlider from "../components/SpeedSlider";
-import { searchMap } from "../algorithms/Searching/index";
-import { useAlgorithmState } from "../store/useAlgorithmState";
-import { useSearching } from "../hooks/UseSearching";
+import Bars from "../../components/Bars";
+import Controls from "../../components/Controls";
+import Dropdown from "../../components/Dropdown";
+import Slider from "../../components/Slider";
+import SpeedSlider from "../../components/SpeedSlider";
+import { searchMap } from "../../algorithms/Searching/index";
+import { useAlgorithmState } from "../../store/useAlgorithmState";
+import { useSearching } from "../../hooks/Algorithms/UseSearching";
 
 export default function Searching() {
-  const [numBars, setNumBars] = useState(20);
   const [search, setSearch] = useState("linear");
   const [searchValue, setSearchValue] = useState(null);
   
 const {
   speed,
   setSpeed,
+  numBars,
+  setNumBars,
 } = useAlgorithmState();
   
   const {
